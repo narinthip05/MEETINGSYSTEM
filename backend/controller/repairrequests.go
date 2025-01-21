@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/narinthip05/Meetingsystem/model"
+	"github.com/narinthip05/MEETINGSYSTEM/model"
 	"github.com/gin-gonic/gin"
 )
 
