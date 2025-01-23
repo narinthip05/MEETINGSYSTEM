@@ -96,6 +96,7 @@ const UserProfile: React.FC = () => {
 
     return (
         <Layout>
+            <h2>ข้อมูลผู้ใช้งาน</h2>
             <div className="user-profile">
                 <div className="header-actions">
                     <button className="btn btn-success" onClick={() => openModal(undefined, "add")}>

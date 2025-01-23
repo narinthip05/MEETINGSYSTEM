@@ -76,7 +76,7 @@ const Layer: React.FC<LayoutProps> = ({ children }) => {
             <div className="main-layer">
                 <div className="content-header">
                     <nav className="navbar" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
-                        <div className="navbar-title">PEA การไฟฟ้าส่วนภูมิภาค เขต 3 นครราชสีมา</div>
+                        <div className="navbar-title">ระบบบริหารจัดการห้องประชุม</div>
                     </nav>
                 </div>
                 <main className="main-content">

@@ -83,6 +83,7 @@ const Details: React.FC = () => {
 
     return (
         <Layer>
+            <h2>อุปกรณ์ภายในห้องประชุม</h2>
             <div style={{ fontFamily: "Arial, sans-serif" }}>
                 <main style={{ marginLeft: "5px", padding: "30px 10px 40px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

@@ -91,6 +91,7 @@ const Management: React.FC = () => {
     };
     return (
         <Layor>
+            <h2>อุปกรณ์แจ้งซ่อม</h2>
             <div style={{ fontFamily: "Arial, sans-serif" }}>
                 <main style={{ marginLeft: "5px", padding: "30px 10px 40px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

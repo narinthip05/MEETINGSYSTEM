@@ -1,18 +1,18 @@
 package model
 
 import (
-    "fmt"
+    
     "time"
 )
 
-type meetingroom struct {
-roomid           int       `json:"roomid"`           //รหัสห้องประชุม
-roomname         string    `json:"roomname"`	     //ชื่อห้องประชุม
-location         string    `json:"location"`	     //ที่ตั้ง
-capacity         int       `json:"capacity"`		 //ความจุ
-roomdate         time.Time `json:"roomdate"`		 //วันเดือนปี
-screencount      int       `json:"screencount"`      //จำนวนจอ
-microphonescount int       `json:"microphonescount"` //จำนวนไมโครโฟน
-pccount          int       `json:"pccount"`		     //จำนวนคอมพิวเตออร์ PC
-screencomputer   int       `json:"screencomputer"`   //จำนวนจอคอมพิวเตอร์
+type Meetingroom struct {
+Roomid           int       `json:"roomid"`           //รหัสห้องประชุม
+Roomname         string    `json:"roomname"`	     //ชื่อห้องประชุม
+Location         string    `json:"location"`	     //ที่ตั้ง
+Capacity         int       `json:"capacity"`		 //ความจุ
+Roomdate         time.Time `json:"roomdate"`		 //วันเดือนปี
+Screencount      int       `json:"screencount"`      //จำนวนจอ
+Microphonescount int       `json:"microphonescount"` //จำนวนไมโครโฟน
+Pccount          int       `json:"pccount"`		     //จำนวนคอมพิวเตออร์ PC
+Screencomputer   int       `json:"screencomputer"`   //จำนวนจอคอมพิวเตอร์
 }

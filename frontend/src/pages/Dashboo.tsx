@@ -22,11 +22,11 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, BarElement, CategoryScale, 
 const Dashboo: React.FC = () => {
   // ข้อมูลและตัวเลือกของ Bar Chart
   const chartData = {
-    labels: ["คอมพิวเตอร์", "เครื่องปริ้น", "โน๊ตบุ๊ค"],
+    labels: ["จำนวนการแจ้งซ่อม", "จำนวนห้องประชุม", "จำนวน PC"],
     datasets: [
       {
         label: "จำนวน",
-        data: [60, 200, 50],
+        data: [16, 15, 100],
         backgroundColor: ["#FF5733", "#33FF57", "#3357FF"],
       },
     ],
@@ -48,9 +48,9 @@ const Dashboo: React.FC = () => {
   // ข้อมูลและตัวเลือกของ Google Pie Chart
   const googleChartData = [
     ["Resource", "Count"],
-    ["คอมพิวเตอร์", 60],
-    ["เครื่องปริ้น", 200],
-    ["โน๊ตบุ๊ค", 50],
+    ["จำนวนการแจ้งซ่อม", 16],
+    ["จำนวนห้องประชุม", 15],
+    ["จำนวน PC", 100],
   ];
 
   const googleChartOptions = {
@@ -62,6 +62,7 @@ const Dashboo: React.FC = () => {
 
   return (
     <Layor>
+      <h2>แดชบอร์ดอุปกรณ์การแจ้งซ่อมภายในห้องประชุม</h2>
       <div
         style={{
           display: "grid",
@@ -71,9 +72,9 @@ const Dashboo: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <DashboardCard title="คอมพิวเตอร์" description="ดูข้อมูลการวิเคราะห์ล่าสุด" icon={<FaHouse />} />
-        <DashboardCard title="เครื่องปริ้น" description="จัดการผู้ใช้ในระบบ" icon={<FaMicrophone />} />
-        <DashboardCard title="โน๊ตบุ๊ค" description="ตั้งค่าระบบและการจัดการทั่วไป" icon={<FaTv />} />
+        <DashboardCard title="จำนวนการแจ้งซ่อม" description="16" icon={<FaHouse />} />
+        <DashboardCard title="จำนวนห้องประชุม" description="15" icon={<FaMicrophone />} />
+        <DashboardCard title="จำนวน PC" description="100" icon={<FaTv />} />
       </div>
       <div
         style={{
@@ -96,7 +97,6 @@ const Dashboo: React.FC = () => {
             textAlign: "center",
           }}
         >
-          <h2>ข้อมูลทรัพยากร (Bar Chart)</h2>
           <Bar
             data={chartData}
             options={barChartOptions}
@@ -114,7 +114,6 @@ const Dashboo: React.FC = () => {
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <h2>ข้อมูลทรัพยากร (Pie Chart)</h2>
           <Chart chartType="PieChart" data={googleChartData} options={googleChartOptions} width="100%" height="400px" />
         </div>
       </div>

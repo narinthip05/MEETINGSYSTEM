@@ -76,6 +76,7 @@ const Dashboard: React.FC = () => {
     return (
         <Layer>
             {/* Card Section */}
+            <h2>แดชบอร์ดอุปกรณ์ภายในห้องประชุม</h2>
             <div
                 style={{
                     display: "grid",
@@ -130,7 +131,6 @@ const Dashboard: React.FC = () => {
                         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <h2>ข้อมูลทรัพยากร (Bar Chart)</h2>
                     <Bar data={chartData} options={barChartOptions} />
                 </div>
 
@@ -144,7 +144,6 @@ const Dashboard: React.FC = () => {
                         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <h2>ข้อมูลทรัพยากร (Pie Chart)</h2>
                     <Chart
                         chartType="PieChart"
                         data={googleChartData}

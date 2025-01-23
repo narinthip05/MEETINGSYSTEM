@@ -580,7 +580,7 @@ body,
   flex: 1;
   max-width: 350px; /* จำกัดความกว้างสูงสุดของกล่อง */
   padding: 15px; /* ลด Padding ภายใน */
-  background-image: linear-gradient(160deg, #70009c,#0051ff,#fff);
+  background-image: linear-gradient(160deg, #00438b,#0051ff);
   background-color: #f9f9f9;
   color: #fff;
   border: 1px solid #ddd;
@@ -596,13 +596,13 @@ body,
 }
 
 .card-icon {
-  font-size: 60px; /* ลดขนาดไอคอน */
+  font-size: 90px; /* ลดขนาดไอคอน */
   color: #ffffff;
   margin-bottom: 10px;
 }
 
 .card h3 {
-  font-size: 18px; /* ลดขนาดตัวอักษรหัวข้อ */
+  font-size: 20px; /* ลดขนาดตัวอักษรหัวข้อ */
   margin-bottom: 8px;
   color: #fff;
 }
@@ -912,3 +912,11 @@ body,
   color: #999;
 }
 
+h2 {
+  font-family: 'Roboto', sans-serif;  /* เปลี่ยนฟอนต์เป็น Roboto */
+  color: #3498db;                    /* เปลี่ยนสีตัวอักษรเป็นน้ำเงิน */
+  text-decoration: underline;         /* ขีดเส้นใต้ */
+  font-weight: bold;                  /* ทำให้ตัวอักษรหนา */
+  text-align: center;                 /* จัดข้อความให้กึ่งกลาง */
+  padding: 10px 0;                    /* ระยะห่างด้านบนและล่าง */
+}
