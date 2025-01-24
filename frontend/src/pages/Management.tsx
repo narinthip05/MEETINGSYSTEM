@@ -202,13 +202,13 @@ const Management: React.FC = () => {
                                 ✖
                             </button>
                             <div className={`modal-header ${modalType}`}>
-                                <h2>
+                                <h3>
                                     {modalType === "edit"
                                         ? "แก้ไขข้อมูลการแจ้งซ่อม"
                                         : modalType === "add"
                                             ? "เพิ่มข้อมูลการแจ้งซ่อม"
                                             : "รายละเอียดข้อมูลแจ้งซ่อม"}
-                                </h2>
+                                </h3>
                             </div>
                             <div className="modal-body">
                                 <FormGroup className="mb-3">
