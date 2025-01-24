@@ -21,7 +21,7 @@
   width: 100%;
   max-width: 300px;
   /* จำกัดความกว้างของ container */
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.6);
   /* Linear gradient with opacity // ใส่พื้นหลังโปร่งใสเล็กน้อย */
   border-radius: 10px;
   padding: 20px 30px;
@@ -92,15 +92,13 @@ body,
   .remember-forgot {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-top: 5px;
   }
   .remember-me {
     display: flex;
-    
   }
   .remember-me input {
-    margin-right: 1px; /* ระยะห่างระหว่าง checkbox และ label */
+    margin-right: -10px; /* ระยะห่างระหว่าง checkbox และ label */
   }
   .remember-label {
     color: black;
