@@ -8,7 +8,6 @@ import Home from './pages/Home'
 import Dashboard from './pages/dashboard'
 import Details from './pages/details'
 import UserProfile from './pages/UserProfile';
-
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,6 +19,7 @@ createRoot(document.getElementById('root')).render(
     <Router>
       <Routes>
         {/* Public Route */}
+        
         <Route path="/Login" element={<Login />} />
         <Route path="/Management" element={<Management />} />
         <Route path="/Dashboo" element={<Dashboo />} />
