@@ -26,7 +26,7 @@ const Details: React.FC = () => {
             number: rooms.length + 1,
             id: rooms.length + 1,
             name: "",
-            date: "", // ฟิลด์ใหม่
+            date: "", 
         });
         setModalType("add");
     };

@@ -21,7 +21,7 @@ const Home: React.FC = () => {
                         <h3>อุปกรณ์ภายในห้องประชุม</h3>
                         <p>ดูรายการอุปกรณ์ห้องประชุม</p>
                     </div>
-                {/* การแจ้งซ่อม */}
+                    {/* การแจ้งซ่อม */}
                     <div
                         className="card"
                         onClick={() => navigate("/dashboo")} // นำทางไปหน้า Dashboo

@@ -1,9 +1,9 @@
 import React from "react";
 
 interface DashboardCardProps {
-    title: string;
+    title:       string;
     description: string;
-    icon: React.ReactNode;
+    icon:        React.ReactNode;
 }
 
 const DashboardCard: React.FC<DashboardCardProps> = ({ title, description, icon }) => {

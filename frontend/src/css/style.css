@@ -433,8 +433,6 @@ body,
   background-color: #1b65cc;
 }
 
-
-
 /* Input styles */
 .input-field {
   width: 95%;
@@ -513,9 +511,6 @@ body,
   }
 }
 
-
-
-
 .button-close {
   background-color: #dc3545;
   color: white;
@@ -568,12 +563,12 @@ body,
   margin-top: 20px;
   justify-content: center; /* จัดให้อยู่ตรงกลาง */
 }
-
+/*card ห้องประชุม*/
 .card {
   flex: 1;
   max-width: 350px; /* จำกัดความกว้างสูงสุดของกล่อง */
   padding: 15px; /* ลด Padding ภายใน */
-  background-image: linear-gradient(160deg, #00438b,#0051ff);
+  background-image: linear-gradient(160deg, #00438b,#0051ff,#678ee1);
   background-color: #f9f9f9;
   color: #fff;
   border: 1px solid #ddd;
@@ -613,6 +608,47 @@ body,
 .card:hover {
   transform: scale(1.05);
 }
+/*Card แจ้งซ่อม*/
+.card {
+  flex: 1;
+  max-width: 350px; /* จำกัดความกว้างสูงสุดของกล่อง */
+  padding: 15px; /* ลด Padding ภายใน */
+  background-image: linear-gradient(160deg, #00438b,#0051ff,#678ee1);
+  background-color: #f9f9f9;
+  color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+.card-icon {
+  font-size: 90px; /* ลดขนาดไอคอน */
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.card h3 {
+  font-size: 20px; /* ลดขนาดตัวอักษรหัวข้อ */
+  margin-bottom: 8px;
+  color: #fff;
+}
+.card p {
+  font-size: 14px; /* ลดขนาดตัวอักษรคำอธิบาย */
+  color: #fff;
+}
+/*เอฟเฟคเวลาคลิ๊ก กล่องนำทาง*/
+.card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -627,9 +663,7 @@ body,
 
 .close-button:hover {
   color: #ff5f5f; /* เปลี่ยนสีเมื่อ hover */
-  
 }
-
 /* สไตล์สำหรับ container ของ user profile */
 .user-profile {
   margin-left: 19px;/* ระยะห่างจาก Sidebar */
