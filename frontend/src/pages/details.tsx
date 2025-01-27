@@ -80,7 +80,6 @@ const Details: React.FC = () => {
         setModalType(null);
         setSelectedRoom(null);
     };
-
     return (
         <Layer>
             <h2>อุปกรณ์ภายในห้องประชุม</h2>
@@ -172,7 +171,6 @@ const Details: React.FC = () => {
                                     </tr>
                                 ))}
                             </tbody>
-
                         </table>
                     </div>
                 </main>
@@ -424,8 +422,6 @@ const Details: React.FC = () => {
                         </div>
                     </div>
                 )}
-
-
             </div>
         </Layer>
     );

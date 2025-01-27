@@ -40,7 +40,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Sidebar */}
             <aside className="sidebar">
                 <div className="sidebar-logo">
-                    <img src="src/assets/PEALogo.png" alt="Logo" className="logo" />
+                    <Link to="/home">
+                        <img src="src/assets/PEALogo.png" alt="Logo" className="logo" />
+                    </Link>
                 </div>
                 <Link
                     to="/home" // ลิ้งไปหน้า Home
@@ -63,7 +65,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="main-layout">
                 <div className="content-header">
                     <nav className="navbar" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
-                        <div className="navbar-title">ระบบบริหารจัดการห้องประชุม</div>
+                        <div className="navbar-title">ระบบบริหารจัดการห้องประชุม Meeting room management system</div>
                     </nav>
                 </div>
                 <main className="main-content">

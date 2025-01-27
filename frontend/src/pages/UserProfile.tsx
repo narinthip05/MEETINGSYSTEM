@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaEdit, FaTrash, FaFileAlt } from "react-icons/fa";
 import Layout from "../layout/layout"; // นำเข้า Layout (ตรวจสอบเส้นทาง)
 import Swal from "sweetalert2";
-import { FormControl, FormGroup, FormLabel, TextField, Select, MenuItem, Button } from "@mui/material";
+
 
 interface User {
     id: number;
@@ -185,10 +185,15 @@ const UserProfile: React.FC = () => {
                         ถัดไป
                     </button>
                 </div>
-
-
                 {isModalOpen && currentUser && (
-                    <div className="modal">
+                    <div className="modal" onClick={(e) => {
+                        // ตรวจสอบว่าคลิกเกิดขึ้นนอก modal-container
+                        if ((e.target as HTMLElement).classList.contains("modal")) {
+                            closeModal();
+                        }
+                    }}
+                >
+
                         <div className="modal-content">
                             <h2>
                                 {isViewOnly
@@ -275,6 +280,7 @@ const UserProfile: React.FC = () => {
                             </form>
                         </div>
                     </div>
+
                 )}
             </div>
         </Layout>
