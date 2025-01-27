@@ -1,5 +1,4 @@
 
-
 export interface UsersData {
     Userid:   number;           // รหัสผู้ใช้งาน (เปลี่ยนเป็น number)
     Username: string;           // ชื่อผู้ใช้งาน

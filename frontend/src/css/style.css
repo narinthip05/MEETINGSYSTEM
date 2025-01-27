@@ -171,7 +171,7 @@ body,
   background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
   border: none; /* ลบเส้นขอบ */
   color: #fff; /* เปลี่ยนสีข้อความตามต้องการ */
-  padding: 10px 20px; /*ขนาดของปุ่มเมนู*/
+  padding: 10px 10px; /*ขนาดของปุ่มเมนู*/
   text-align: center;
   cursor: pointer;
   /*width: 100%; /* ทำให้ปุ่มขยายเต็มความกว้าง */
