@@ -191,10 +191,10 @@ const Details: React.FC = () => {
                             <div className={`modal-header ${modalType}`}>
                                 <p style={{ margin: 20 }}>
                                     {modalType === "edit"
-                                        ? "แก้ไขข้อมูลห้องประชุม"
+                                        ? "แก้ไขข้อมูลอุปกรณ์ห้องประชุม"
                                         : modalType === "add"
-                                            ? "เพิ่มข้อมูลห้องประชุม"
-                                            : "รายละเอียดข้อมูลห้องประชุม"}
+                                            ? "เพิ่มข้อมูลอุปกรณ์ห้องประชุม"
+                                            : "รายละเอียดข้อมูลอุปกรณ์ห้องประชุม"}
                                 </p>
                             </div>
                             <div className="modal-body" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
