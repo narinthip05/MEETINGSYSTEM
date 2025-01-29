@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/style.css';
 import { Link } from 'react-router-dom'; // ใช้ Link สำหรับการนำทาง
-import { FaTachometerAlt, FaDatabase, FaSignOutAlt, FaHome, FaUser } from 'react-icons/fa'; // เพิ่มไอคอน Home
+import { FaSignOutAlt, FaHome, FaUser } from 'react-icons/fa'; // เพิ่มไอคอน Home
 import Swal from 'sweetalert2';
 
 

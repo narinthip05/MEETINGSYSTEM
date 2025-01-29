@@ -7,7 +7,7 @@ import Management from './pages/Management'
 import Home from './pages/Home' 
 import Dashboard from './pages/dashboard'
 import Details from './pages/details'
-import UserProfile from './pages/UserProfile';
+import UserProfile from './pages/UserProfile'
 import {
   BrowserRouter as Router,
   Routes,
@@ -27,8 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Details" element={<Details />} /> 
         <Route path="/" element={<Details />} /> 
-        <Route path="user-profile" element={<UserProfile />} />
-        
+        <Route path="/user-profile" element={<UserProfile />} />
       </Routes>
     </Router>
 </StrictMode>,
