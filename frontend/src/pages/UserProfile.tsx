@@ -193,7 +193,6 @@ const UserProfile: React.FC = () => {
                         }
                     }}
                 >
-
                         <div className="modal-content">
                             <h2>
                                 {isViewOnly
