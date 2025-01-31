@@ -26,7 +26,7 @@ const Details: React.FC = () => {
             number: rooms.length + 1,
             id: rooms.length + 1,
             name: "",
-            date: "", 
+            date: "",
         });
         setModalType("add");
     };
@@ -84,39 +84,26 @@ const Details: React.FC = () => {
         <Layer>
             <h2>อุปกรณ์ภายในห้องประชุม</h2>
             <div style={{ fontFamily: "Arial, sans-serif" }}>
-                <main style={{ marginLeft: "5px", padding: "30px 10px 40px" }}>
+                <main style={{ marginLeft: "20px", padding: "10px 10px 10px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <button className="button-add" onClick={handleAddRoom}>
                             เพิ่มข้อมูล
                         </button>
-                        {/* กล่องค้นหาพร้อมไอคอน */}
                         <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                backgroundColor: "#fff",
-                                padding: "5px 10px",
-                                borderRadius: "8px",
-                                border: "1px solid #333",
-                                /*width: "300px",*/
-                            }}
                         >
-                            <FaSearch
-                                style={{ marginRight: "10px", color: "#333" }} />
-                            <input
-                                type="text"
-                                placeholder="ค้นหาชื่อห้องประชุม"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                style={{
-                                    border: "none",
-                                    outline: "none",
-                                    flex: 1,
-                                    fontSize: "16px",
-                                    backgroundColor: "transparent",
-                                }}
-                            />
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="ค้นหาชื่อผู้ใช้งาน"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="search-input"
+                                />
+                                <button className="search-btn">ค้นหา</button>
+                            </div>
                         </div>
+                        {/* ปุ่มค้นหา */}
+
                     </div>
                     <div
                         style={{
@@ -338,7 +325,7 @@ const Details: React.FC = () => {
                                             </FormControl>
                                         </FormGroup>
                                         {/* ปุ่มลบแถว */}
-                                        <div style={{marginTop: "10px"}}>
+                                        <div style={{ marginTop: "10px" }}>
                                             <button
                                                 type="button"
                                                 className="btn btn-danger"

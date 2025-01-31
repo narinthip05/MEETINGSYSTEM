@@ -23,10 +23,10 @@ const Home: React.FC = () => {
                     </div>
                     {/* การแจ้งซ่อม */}
                     <div
-                        className="card"
+                        className="card-a"
                         onClick={() => navigate("/dashboo")} // นำทางไปหน้า Dashboo
                     >
-                        <FaTools className="card-icon" />
+                        <FaTools className="card-icon-a" />
                         <h3>การแจ้งซ่อมภายในห้องประชุม</h3>
                         <p>แจ้งปัญหาที่เกิดขึ้นเกี่ยวกับอุปกรณ์</p>
                     </div>

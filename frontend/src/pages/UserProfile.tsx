@@ -99,16 +99,21 @@ const UserProfile: React.FC = () => {
             <h2>ข้อมูลผู้ใช้งาน</h2>
             <div className="user-profile">
                 <div className="header-actions">
-                    <button className="btn btn-success" onClick={() => openModal(undefined, "add")}>
+                    {/* ปุ่มเพิ่มข้อมูล (ชิดซ้ายสุด) */}
+                    <button className="btn-success" onClick={() => openModal(undefined, "add")}>
                         เพิ่มข้อมูล
                     </button>
-                    <input
-                        type="text"
-                        placeholder="ค้นหาชื่อผู้ใช้งาน"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="search-input"
-                    />
+                    {/* กล่องค้นหาและปุ่มค้นหาไปขวาสุด */}
+                    <div className="search-group">
+                        <input
+                            type="text"
+                            placeholder="ค้นหาชื่อผู้ใช้งาน"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="search-input"
+                        />
+                        <button className="search-btn">ค้นหา</button>
+                    </div>
                 </div>
 
                 <div className="table-container">
@@ -192,7 +197,7 @@ const UserProfile: React.FC = () => {
                             closeModal();
                         }
                     }}
-                >
+                    >
                         <div className="modal-content">
                             <h2>
                                 {isViewOnly
@@ -232,7 +237,7 @@ const UserProfile: React.FC = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label>ชื่อผู้ใช้งาน:</label>
+                                    <label>ชื่อผู้ใช้งาน :</label>
                                     <input
                                         type="text"
                                         name="username"
@@ -242,7 +247,7 @@ const UserProfile: React.FC = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label>รหัสผ่าน:</label>
+                                    <label>รหัสผ่าน :</label>
                                     <input
                                         type="text"
                                         name="password"
@@ -252,7 +257,7 @@ const UserProfile: React.FC = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label>ตำแหน่ง:</label>
+                                    <label>ตำแหน่ง :</label>
                                     <select
                                         name="role"
                                         value={role}  // ใช้ value แทน defaultValue

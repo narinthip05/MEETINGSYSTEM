@@ -310,6 +310,9 @@ body,
   margin-bottom: 20px;
   cursor: pointer;
 }
+.button-add:hover{
+background-color: #45a049;
+}
 
 /* Table styles */
 .table {
@@ -323,6 +326,9 @@ body,
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
+}
+th {
+  background-color: #f4f4f4;
 }
 
 /* Modal details.tsx ปรับโมดอลเพิ่มลบแก้ไข*/
@@ -512,7 +518,7 @@ body,
 }
 
 .button-close {
-  background-color: #dc3545;
+  background-color: #989696;
   color: white;
   padding: 5px 5px;
   border: none;
@@ -563,91 +569,93 @@ body,
   margin-top: 20px;
   justify-content: center; /* จัดให้อยู่ตรงกลาง */
 }
-/*card ห้องประชุม*/
-.card {
+/* สไตล์ Card พื้นฐาน */
+.card, .card-a {
   flex: 1;
-  max-width: 350px; /* จำกัดความกว้างสูงสุดของกล่อง */
-  padding: 15px; /* ลด Padding ภายใน */
-  background-image: linear-gradient(160deg, #00438b,#0051ff,#678ee1);
-  background-color: #f9f9f9;
-  color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  max-width: 350px;
+  padding: 20px;
+  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.card-icon {
-  font-size: 90px; /* ลดขนาดไอคอน */
-  color: #ffffff;
-  margin-bottom: 10px;
-}
-
-.card h3 {
-  font-size: 20px; /* ลดขนาดตัวอักษรหัวข้อ */
-  margin-bottom: 8px;
   color: #fff;
-}
-
-.card p {
-  font-size: 14px; /* ลดขนาดตัวอักษรคำอธิบาย */
-  color: #fff;
-}
-/*เอฟเฟคเวลาคลิ๊ก กล่องนำทาง*/
-.card {
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   cursor: pointer;
-  transition: transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card ห้องประชุม */
+.card {
+  background: linear-gradient(145deg, #00438b, #0051ff, #678ee1);
+  box-shadow: 5px 5px 15px rgba(0, 64, 128, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
 }
 
 .card:hover {
-  transform: scale(1.05);
+  background: linear-gradient(145deg, #003a7a, #004ee0, #5f83d1);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0, 64, 128, 0.4);
 }
-/*Card แจ้งซ่อม*/
-.card {
-  flex: 1;
-  max-width: 350px; /* จำกัดความกว้างสูงสุดของกล่อง */
-  padding: 15px; /* ลด Padding ภายใน */
-  background-image: linear-gradient(160deg, #00438b,#0051ff,#678ee1);
-  background-color: #f9f9f9;
-  color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+
+/* Card แจ้งซ่อม */
+.card-a {
+  background: linear-gradient(145deg, #d38d14, #ce921a, #e1b867);
+  box-shadow: 5px 5px 15px rgba(128, 64, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
 }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+
+.card-a:hover {
+  background: linear-gradient(145deg, #bf7d10, #c08a1a, #d1a857);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(128, 64, 0, 0.4);
 }
-.card-icon {
-  font-size: 90px; /* ลดขนาดไอคอน */
-  color: #ffffff;
+
+/* ไอคอนใน Card */
+.card-icon, .card-icon-a {
+  font-size: 80px;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.card:hover .card-icon, .card-a:hover .card-icon-a {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* ข้อความหัวข้อ */
+.card h3, .card-a h3 {
+  font-size: 22px;
+  font-weight: bold;
   margin-bottom: 10px;
+  letter-spacing: 1px;
 }
-.card h3 {
-  font-size: 20px; /* ลดขนาดตัวอักษรหัวข้อ */
-  margin-bottom: 8px;
-  color: #fff;
+
+/* ข้อความคำอธิบาย */
+.card p, .card-a p {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-bottom: 0;
 }
-.card p {
-  font-size: 14px; /* ลดขนาดตัวอักษรคำอธิบาย */
-  color: #fff;
+
+/* เอฟเฟกต์แสงวิ้ง ๆ เมื่อ hover */
+.card::after, .card-a::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
 }
-/*เอฟเฟคเวลาคลิ๊ก กล่องนำทาง*/
-.card {
-  cursor: pointer;
-  transition: transform 0.2s;
+
+.card:hover::after, .card-a:hover::after {
+  top: -20px;
+  left: 120%;
+  opacity: 0.6;
 }
-.card:hover {
-  transform: scale(1.05);
-}
+
 
 .close-button {
   position: absolute;
@@ -790,7 +798,7 @@ body,
 
 /* ปุ่มปิด */
 .modal-content .btn-secondary {
-  background-color: #f44336;
+  background-color: #6e7881;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -837,7 +845,7 @@ body,
 
 /* ปิดปุ่ม "ปิด" */
 .modal-content .btn-secondary:hover {
-  background-color: #d32f2f;
+  background-color: #84888b;
 }
 
 /* ปุ่มบันทึก Hover */
@@ -941,9 +949,66 @@ body,
 
 h2 {
   font-family: 'Roboto', sans-serif;  /* เปลี่ยนฟอนต์เป็น Roboto */
-  color: #3498db;                    /* เปลี่ยนสีตัวอักษรเป็นน้ำเงิน */
-  text-decoration: underline;         /* ขีดเส้นใต้ */
-  font-weight: bold;                  /* ทำให้ตัวอักษรหนา */
+  color: #000000;                    /* เปลี่ยนสีตัวอักษรเป็นน้ำเงิน */
+  /*text-decoration: underline;ขีดเส้นใต้ */
+  font-weight: lighter;                  /* ทำให้ตัวอักษรหนา */
   text-align: center;                 /* จัดข้อความให้กึ่งกลาง */
   padding: 10px 0;                    /* ระยะห่างด้านบนและล่าง */
+}
+
+/*หน้า UsersProfile*/
+/* จัดปุ่มเพิ่มข้อมูลไปซ้ายสุด และช่องค้นหาไปขวาสุด */
+.header-actions {
+  display: flex;
+  justify-content: space-between; /* กระจายองค์ประกอบ ซ้าย-ขวา */
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* ปุ่มเพิ่มข้อมูล (สีเขียว) */
+.btn-success {
+  background-color: #31ce36;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn-success:hover {
+  background-color: #45a049;
+}
+
+/* กล่องค้นหาและปุ่มค้นหา */
+.search-group {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* ระยะห่างระหว่าง input กับปุ่ม */
+}
+
+/* ช่องค้นหา */
+.search-input {
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 200px;
+}
+
+/* ปุ่มค้นหา */
+.search-btn {
+  padding: 10px 15px;
+  background-color: #5565f5;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+  background-color: #6f7eff;
 }

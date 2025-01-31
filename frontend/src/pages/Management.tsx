@@ -6,8 +6,8 @@ import { FormControl, FormGroup, FormLabel } from '@mui/material';
 
 const Management: React.FC = () => {
     const [rooms, setRooms] = useState([
-        { id: 1, date: "111", roomname: "ห้องประชุม 1", Location: "อาคาร 3 ชั้น 2", name: "1111", department: "กรย.", computername: "E3NPR", machinetype: "PC", model: "dell", contractyear: "บร/2568",harddisk:"ssd" ,ram:"....",problemneed: "จอฟ้า",resolution:"........." },
-        { id: 2, date: "111", roomname: "ห้องประชุม 2", Location: "อาคาร 3 ชั้น 2", name: "narinthip", department: "บช.", computername: "E3NPR", machinetype: "Printer", model: "Samsung", contractyear: "บร/2568",harddisk:"ssd",ram:"...." ,problemneed: "จอมืด",resolution:"........." },
+        { id: 1, date: "111", roomname: "ห้องประชุม 1", Location: "อาคาร 3 ชั้น 2", name: "1111", department: "กรย.", computername: "E3NPR", machinetype: "PC", model: "dell", contractyear: "บร/2568", harddisk: "ssd", ram: "....", problemneed: "จอฟ้า", resolution: "........." },
+        { id: 2, date: "111", roomname: "ห้องประชุม 2", Location: "อาคาร 3 ชั้น 2", name: "narinthip", department: "บช.", computername: "E3NPR", machinetype: "Printer", model: "Samsung", contractyear: "บร/2568", harddisk: "ssd", ram: "....", problemneed: "จอมืด", resolution: "........." },
     ]);
     const [selectedRoom, setSelectedRoom] = useState<any | null>(null);
     const [modalType, setModalType] = useState<"details" | "edit" | "add" | "confirmDelete" | null>(null);
@@ -29,10 +29,10 @@ const Management: React.FC = () => {
             machinetype: "",
             model: "",
             contractyear: "",
-            harddisk:"",
-            ram:"",
+            harddisk: "",
+            ram: "",
             problemNeed: "",
-            resolution:"",
+            resolution: "",
 
         });
         setModalType("add");
@@ -93,38 +93,21 @@ const Management: React.FC = () => {
         <Layor>
             <h2>อุปกรณ์แจ้งซ่อม</h2>
             <div style={{ fontFamily: "Arial, sans-serif" }}>
-                <main style={{ marginLeft: "5px", padding: "30px 10px 40px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <main style={{ marginLeft: "10px", padding: "10px 10px 10px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <button className="button-add" onClick={handleAddRoom}>
                             เพิ่มข้อมูล
                         </button>
-                        {/* กล่องค้นหาพร้อมไอคอน */}
                         <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                backgroundColor: "#fff",
-                                padding: "5px 10px",
-                                borderRadius: "8px",
-                                border: "1px solid #333",
-                                /*width: "300px",*/
-                            }}
                         >
-                            <FaSearch
-                                style={{ marginRight: "10px", color: "#333" }} />
                             <input
                                 type="text"
-                                placeholder="ค้นหาชื่อห้องประชุม"
+                                placeholder="ค้นหาชื่อผู้ใช้งาน"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                style={{
-                                    border: "none",
-                                    outline: "none",
-                                    flex: 1,
-                                    fontSize: "16px",
-                                    backgroundColor: "transparent",
-                                }}
+                                className="search-input"
                             />
+                            <button className="search-btn">ค้นหา</button>
                         </div>
                     </div>
                     <div
@@ -270,93 +253,93 @@ const Management: React.FC = () => {
                                         }
                                     /></FormControl>
                                 </FormGroup>
-                                        <FormGroup className="mb-3">
-                                            <FormLabel>ชื่อคอมพิวเตอร์ : </FormLabel>
-                                            <FormControl><input
-                                                className="input-field"
-                                                type="text"
-                                                value={selectedRoom.computername}
-                                                onChange={(e) =>
-                                                    setSelectedRoom({ ...selectedRoom, computername: e.target.value })
-                                                }
-                                            /></FormControl>
-                                        </FormGroup>
-                                        <FormGroup className="mb-3">
-                                            <FormLabel>ประเภทเครื่อง : </FormLabel>
-                                            <FormControl><input
-                                                className="input-field"
-                                                type="text"
-                                                value={selectedRoom.machinetype}
-                                                onChange={(e) =>
-                                                    setSelectedRoom({ ...selectedRoom, machinetype: e.target.value })
-                                                }
-                                            /></FormControl>
-                                        </FormGroup>
-                                        <FormGroup className="mb-3">
-                                            <FormLabel>รุ่น : </FormLabel>
-                                            <FormControl><input
-                                                className="input-field"
-                                                type="text"
-                                                value={selectedRoom.model}
-                                                onChange={(e) =>
-                                                    setSelectedRoom({ ...selectedRoom, model: e.target.value })
-                                                }
-                                            /></FormControl>
-                                        </FormGroup>
-                                            <FormGroup className="mb-3">
-                                                <FormLabel>เลขที่สัญญา : </FormLabel>
-                                                <FormControl><input
-                                                    className="input-field"
-                                                    type="text"
-                                                    value={selectedRoom.contractyear}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({ ...selectedRoom, contractyear: e.target.value })
-                                                    }
-                                                /></FormControl>
-                                            </FormGroup>
-                                            <FormGroup className="mb-3">
-                                                <FormLabel>ฮาร์ดดิส (Hard disk) : </FormLabel>
-                                                <FormControl><input
-                                                    className="input-field"
-                                                    type="text"
-                                                    value={selectedRoom.harddisk}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({ ...selectedRoom, harddisk: e.target.value })
-                                                    }
-                                                /></FormControl>
-                                            </FormGroup>
-                                            <FormGroup className="mb-3">
-                                                <FormLabel>แรม (RAM) : </FormLabel>
-                                                <FormControl><input
-                                                    className="input-field"
-                                                    type="text"
-                                                    value={selectedRoom.ram}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({ ...selectedRoom, ram: e.target.value })
-                                                    }
-                                                /></FormControl>
-                                            </FormGroup>
-                                            <FormGroup className="mb-3">
-                                                <FormLabel>ปัญหา/ความต้องการ : </FormLabel>
-                                                <textarea
-                                                    className="input-field"
-                                                    value={selectedRoom.problemneed}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({ ...selectedRoom, problemneed: e.target.value })
-                                                    }
-                                                />
-                                            </FormGroup>
-                                            <FormGroup className="mb-3">
-                                                <FormLabel>วิธีการแก้ไข : </FormLabel>
-                                                <textarea
-                                                    className="input-field"
-                                                    value={selectedRoom.resolution}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({ ...selectedRoom, resolution: e.target.value })
-                                                    }
-                                                />
-                                            </FormGroup>
-                                    </div>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>ชื่อคอมพิวเตอร์ : </FormLabel>
+                                    <FormControl><input
+                                        className="input-field"
+                                        type="text"
+                                        value={selectedRoom.computername}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, computername: e.target.value })
+                                        }
+                                    /></FormControl>
+                                </FormGroup>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>ประเภทเครื่อง : </FormLabel>
+                                    <FormControl><input
+                                        className="input-field"
+                                        type="text"
+                                        value={selectedRoom.machinetype}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, machinetype: e.target.value })
+                                        }
+                                    /></FormControl>
+                                </FormGroup>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>รุ่น : </FormLabel>
+                                    <FormControl><input
+                                        className="input-field"
+                                        type="text"
+                                        value={selectedRoom.model}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, model: e.target.value })
+                                        }
+                                    /></FormControl>
+                                </FormGroup>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>เลขที่สัญญา : </FormLabel>
+                                    <FormControl><input
+                                        className="input-field"
+                                        type="text"
+                                        value={selectedRoom.contractyear}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, contractyear: e.target.value })
+                                        }
+                                    /></FormControl>
+                                </FormGroup>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>ฮาร์ดดิส (Hard disk) : </FormLabel>
+                                    <FormControl><input
+                                        className="input-field"
+                                        type="text"
+                                        value={selectedRoom.harddisk}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, harddisk: e.target.value })
+                                        }
+                                    /></FormControl>
+                                </FormGroup>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>แรม (RAM) : </FormLabel>
+                                    <FormControl><input
+                                        className="input-field"
+                                        type="text"
+                                        value={selectedRoom.ram}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, ram: e.target.value })
+                                        }
+                                    /></FormControl>
+                                </FormGroup>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>ปัญหา/ความต้องการ : </FormLabel>
+                                    <textarea
+                                        className="input-field"
+                                        value={selectedRoom.problemneed}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, problemneed: e.target.value })
+                                        }
+                                    />
+                                </FormGroup>
+                                <FormGroup className="mb-3">
+                                    <FormLabel>วิธีการแก้ไข : </FormLabel>
+                                    <textarea
+                                        className="input-field"
+                                        value={selectedRoom.resolution}
+                                        onChange={(e) =>
+                                            setSelectedRoom({ ...selectedRoom, resolution: e.target.value })
+                                        }
+                                    />
+                                </FormGroup>
+                            </div>
                             <div className="modal-footer">
                                 <button className="button-close" onClick={closeModal}>
                                     ปิด
@@ -401,7 +384,6 @@ const Management: React.FC = () => {
                         </div>
                     </div>
                 )}
-
             </div>
         </Layor>
     );
