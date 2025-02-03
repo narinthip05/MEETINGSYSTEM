@@ -348,7 +348,7 @@ const Details: React.FC = () => {
                                     <div className="text-end">
                                         <button
                                             type="button"
-                                            className="btn btn-success"
+                                            className="btnbtn"
                                             onClick={() =>
                                                 setSelectedRoom((prev) => ({
                                                     ...prev,

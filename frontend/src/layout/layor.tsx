@@ -62,12 +62,6 @@ const Layor: React.FC<LayoutProps> = ({ children }) => {
                 >
                     <FaDatabase className="icon" /> หน้าข้อมูล
                 </Link>
-                <Link
-                    to="/user-profile" // ลิ้งไปหน้า User Profile
-                    className={`sidebar-button ${location.pathname === "/user-profile" ? "active" : ""}`}
-                >
-                    <FaUser className="icon" /> ข้อมูลผู้ใช้งาน
-                </Link>
                 {/* ปุ่มออกจากระบบ */}
                 <button className="sidebar-button logout-button" onClick={handleLogout}>
                     <FaSignOutAlt className="icon" /> ออกจากระบบ
