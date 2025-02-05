@@ -6,7 +6,6 @@ import { FormControl, FormGroup, FormLabel } from '@mui/material';
 import { getAllRepairRequest } from "../api/api.tsx"; // ตรวจสอบเส้นทางให้ถูกต้อง
 import { Repairrequests } from "../interface/IRepairrequests.ts"
 
-
 const Management: React.FC = () => {
     const [repairRequests, setRepairRequests] = useState<Repairrequests[]>([]);
     const [selectedRequest, setSelectedRequest] = useState<Repairrequests | null>(null);
@@ -41,7 +40,6 @@ const Management: React.FC = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentRequests = filteredRequests.slice(indexOfFirstItem, indexOfLastItem);
-
     // คำนวณจำนวนหน้าทั้งหมด
     const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
 

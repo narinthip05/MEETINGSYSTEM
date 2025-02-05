@@ -1,71 +1,114 @@
-import React, { useState } from "react";
-import { FaEdit, FaTrash , FaFile } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaEdit, FaTrash, FaFile } from "react-icons/fa";
 import Layer from "../layout/layer.tsx";
 import Swal from "sweetalert2";
-import { FormControl, FormGroup, FormLabel } from '@mui/material';
-import { useNavigate } from "react-router-dom";
-import { getAllRepairRequest } from "../api/api.tsx"; // ตรวจสอบเส้นทางให้ถูกต้อง
-import { Meetingroom } from "../interface/IMeetingroom.ts"
-
+import { FormControl, FormGroup, FormLabel } from "@mui/material";
+import { getAllMeetingRoom } from "../api/api.tsx";
+import { Meetingroom } from "../interface/IMeetingroom.ts";
 
 const Details: React.FC = () => {
-    const navigate = useNavigate();
-    const [rooms, setRooms] = useState([
-        { id: 1, date: "2024-01-01", name: "อเนกประสงค์", capacity: 50, microphones: 10, screens: 2, Location: "อาคาร 3 ชั้น 2", moniters: 5, pc: 5, brand: "DELL Optiplex 7020", contract: "บ.30/2558" },
-        { id: 2, date: "2024-01-01", name: "ห้องประชุม 2", capacity: 30, microphones: 5, screens: 1, Location: "อาคาร 1 ชั้น 4", moniters: 12, pc: 10, brand: "DELL Optiplex 3060 ", contract: "บ.17/2562" },
-    ]);
-    const [selectedRoom, setSelectedRoom] = useState<any | null>(null);
+    const [meetingRoom, setMeetingRoom] = useState<Meetingroom[]>([]);
+    const [selectedRequest, setSelectedRequest] = useState<Meetingroom | null>(null);
     const [modalType, setModalType] = useState<"details" | "edit" | "add" | "confirmDelete" | null>(null);
-    const [searchTerm, setSearchTerm] = useState(""); // ตัวแปรสำหรับเก็บข้อความค้นหา
+    const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; // แสดงข้อมูล 10 แถวต่อหน้า
-    
+    const itemsPerPage = 10;
 
-    // คำนวณหน้าทั้งหมด
-    const totalPages = Math.ceil(rooms.length / itemsPerPage);
+    type AdditionalRow = {
+        Pc: string;
+        Brand: string;
+        Contract: string;
+    };
+    const handleInputChange = (index: number, field: keyof AdditionalRow, value: string) => {
+        setSelectedRequest((prev) => {
+            if (!prev) return prev; // ป้องกัน null หรือ undefined
+            const updatedRows = prev.AdditionalRows.map((row, i) =>
+                i === index ? { ...row, [field]: value } : row
+            );
+            return { ...prev, AdditionalRows: updatedRows };
+        });
+    };
 
-    // ฟังก์ชันสำหรับจัดการเปลี่ยนหน้า
-    const handlePageChange = (page) => {
+    // ✅ ฟังก์ชันเพิ่มข้อมูล
+    const handleAddAdditionalRow = () => {
+        setSelectedRequest((prev) => {
+            if (!prev) return prev;
+            const newRow = { Pc: "", Brand: "", Contract: "" };
+            return { ...prev, AdditionalRows: [...prev.AdditionalRows, newRow] };
+        });
+    };
+
+    // ✅ ฟังก์ชันคำนวณจำนวนเครื่อง
+    const getTotalPCCount = () => selectedRequest?.AdditionalRows.length || 0;
+    // ✅ ฟังก์ชันคำนวณจำนวนรายการที่สมบูรณ์ (ที่มีค่าครบทุกช่อง)
+    const getCompleteItemCount = () => {
+        return selectedRequest?.AdditionalRows.filter(
+            (row) => row.Pc.trim() && row.Brand.trim() && row.Contract.trim()
+        ).length || 0;
+    };
+
+    useEffect(() => {
+        getAllMeetingRoom()
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    setMeetingRoom(data);
+                } else {
+                    console.error("Data is not an array");
+                    setMeetingRoom([]);
+                }
+            })
+            .catch((error) => {
+                console.error("Error loading meeting rooms:", error);
+                setMeetingRoom([]);
+            });
+    }, []);
+
+    // ✅ Correct filtering logic
+    const filteredRequests = meetingRoom.filter((request) =>
+        request.Roomname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.Location.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // ✅ Correct pagination logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredRequests.slice(indexOfFirstItem, indexOfLastItem);
+    // คำนวณจำนวนหน้าทั้งหมด
+    const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
+
+    const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
-    // คำนวณข้อมูลที่จะแสดงในหน้าปัจจุบัน
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = rooms.slice(indexOfFirstItem, indexOfLastItem);
-
-
-    // ฟังก์ชันกรองข้อมูลในตาราง
-    const filteredRooms = rooms.filter((room) =>
-        room.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const handleAddRoom = () => {
-        setSelectedRoom({
-            number: rooms.length + 1,
-            id: rooms.length + 1,
-            name: "",
-            date: "",
+    const handleAddRequest = () => {
+        setSelectedRequest({
+            Roomid: meetingRoom.length + 1,
+            Roomdate: new Date().toISOString().split("T")[0],
+            Roomname: "",
+            Location: "",
+            Capacity: 0,
+            Microphone: 0,
+            Screen: 0,
+            AdditionalRows: [{ Pc: "", Brand: "", Contract: "" }], // ✅ ใช้งานได้แล้ว
         });
+
         setModalType("add");
     };
-    const handleDeleteRoom = (id: number) => {
-        const roomToDelete = rooms.find((room) => room.id === id);
-        setSelectedRoom(roomToDelete); // กำหนดห้องที่ต้องการลบ
 
-        if (!roomToDelete) {
-            Swal.fire({
-                title: "เกิดข้อผิดพลาด",
-                text: "ไม่พบข้อมูลห้องประชุมที่ต้องการลบ",
-                icon: "error",
-                timer: 2000, // แสดงข้อความเพียงชั่วครู่
-                showConfirmButton: false, // ไม่แสดงปุ่ม OK
-            });
+
+
+    // ✅ Fixed delete function
+    const handleDeleteRequest = (id: number) => {
+        const requestToDelete = meetingRoom.find((request) => request.Roomid === id);
+        setSelectedRequest(requestToDelete || null);
+
+        if (!requestToDelete) {
+            Swal.fire("เกิดข้อผิดพลาด", "ไม่พบข้อมูลอุปกรณ์ที่ต้องการลบ", "error");
             return;
         }
         Swal.fire({
             title: "ยืนยันการลบ?",
-            text: `คุณต้องการลบห้อง "${roomToDelete.name}" หรือไม่?`,
+            text: `คุณต้องการลบรายการอุปกรณ์ห้องประชุม ${requestToDelete.Roomname} หรือไม่?`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
@@ -74,38 +117,32 @@ const Details: React.FC = () => {
             cancelButtonText: "ยกเลิก",
         }).then((result) => {
             if (result.isConfirmed) {
-                // ถ้าผู้ใช้กดยืนยันการลบ
-                setRooms((prevRooms) => prevRooms.filter((room) => room.id !== id));
-                Swal.fire({
-                    title: "ลบข้อมูลสำเร็จ!",
-                    text: `ข้อมูลห้อง "${roomToDelete.name}" ถูกลบเรียบร้อยแล้ว`,
-                    icon: "success",
-                    timer: 2000, // แสดงข้อความเพียงชั่วครู่
-                    showConfirmButton: false, // ไม่แสดงปุ่ม OK
-                });
+                setMeetingRoom(meetingRoom.filter((request) => request.Roomid !== id));
+                Swal.fire("ลบข้อมูลสำเร็จ!", "ข้อมูลถูกลบเรียบร้อยแล้ว", "success");
             }
         });
     };
+
     const handleShowDetails = (room: any) => {
-        setSelectedRoom(room);
+        setSelectedRequest(room);
         setModalType("details"); // Show the details modal
     };
-    const handleEditRoom = (room: any) => {
-        setSelectedRoom(room);
-        setModalType("edit"); // Show the edit modal
+    const handleEditRequest = (room) => {
+        setSelectedRequest({ ...room, additionalRows: room.additionalRows || [] });
+        setModalType("edit");
     };
-
     const closeModal = () => {
         setModalType(null);
-        setSelectedRoom(null);
+        setSelectedRequest(null);
     };
+
     return (
         <Layer>
             <h2>อุปกรณ์ภายในห้องประชุม</h2>
             <div style={{ fontFamily: "Arial, sans-serif" }}>
                 <main style={{ marginLeft: "20px", padding: "10px 10px 10px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <button className="button-add" onClick={handleAddRoom}>
+                        <button className="button-add" onClick={handleAddRequest}>
                             เพิ่มข้อมูล
                         </button>
                         <div
@@ -150,63 +187,74 @@ const Details: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredRooms.map((room, index) => (
-                                    <tr key={room.id}>
-                                        <td>{index + 1}</td>
-                                        <td>{room.name}</td>
-                                        <td>{room.capacity}</td>
-                                        <td>{room.microphones}</td>
-                                        <td>{room.screens}</td>
-                                        <td>{room.pc}</td>
-                                        <td>
-                                            <FaFile
-                                                style={{ margin: "0 10px", cursor: "pointer", color: "#007bff" }}
-                                                onClick={() => handleShowDetails(room)}
-                                            />
-                                        </td>
-                                        <td>
-                                            <FaEdit
-                                                style={{ margin: "0 10px", cursor: "pointer", color: "#ffc107" }}
-                                                onClick={() => handleEditRoom(room)}
-                                            />
-                                            <FaTrash
-                                                style={{ margin: "0 10px", cursor: "pointer", color: "#dc3545" }}
-                                                onClick={() => handleDeleteRoom(room.id)}
-                                            />
+                                {filteredRequests.length > 0 ? (
+                                    filteredRequests.map((request, index) => (
+                                        <tr key={request.Roomid}>
+                                            <td>{index + 1}</td>
+                                            <td>{request.Roomname || '-'}</td>
+                                            <td>{request.Capacity || '-'}</td>
+                                            <td>{request.Microphone || '-'}</td>
+                                            <td>{request.Screen || '-'}</td>
+
+                                            {/* ✅ จำนวนจอคอมพิวเตอร์/PC */}
+                                            <td>{request.AdditionalRows?.length || 0}</td>
+                                            <td>
+
+                                                <FaFile
+                                                    style={{ margin: "0 10px", cursor: "pointer", color: "#007bff" }}
+                                                    onClick={() => handleShowDetails(request)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <FaEdit
+                                                    style={{ margin: "0 10px", cursor: "pointer", color: "#ffc107" }}
+                                                    onClick={() => handleEditRequest(request)}
+                                                />
+                                                <FaTrash
+                                                    style={{ margin: "0 10px", cursor: "pointer", color: "#dc3545" }}
+                                                    onClick={() => handleDeleteRequest(request.Roomid)}
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={7} style={{ textAlign: 'center' }}>
+                                            ไม่พบข้อมูล
                                         </td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     </div>
-                     {/* Pagination */}
-            <div className="pagination">
-                <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    className={`page-btn ${currentPage === 1 ? "disabled" : ""}`}
-                    disabled={currentPage === 1}
-                >
-                    ก่อนหน้า
-                </button>
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handlePageChange(index + 1)}
-                        className={`page-btn ${currentPage === index + 1 ? "active" : ""}`}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-                <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    className={`page-btn ${currentPage === totalPages ? "disabled" : ""}`}
-                    disabled={currentPage === totalPages}
-                >
-                    ถัดไป
-                </button>
-            </div>
+                    {/* Pagination */}
+                    <div className="pagination">
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            className={`page-btn ${currentPage === 1 ? "disabled" : ""}`}
+                            disabled={currentPage === 1}
+                        >
+                            ก่อนหน้า
+                        </button>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handlePageChange(index + 1)}
+                                className={`page-btn ${currentPage === index + 1 ? "active" : ""}`}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            className={`page-btn ${currentPage === totalPages ? "disabled" : ""}`}
+                            disabled={currentPage === totalPages}
+                        >
+                            ถัดไป
+                        </button>
+                    </div>
                 </main>
-                {(modalType === "details" || modalType === "edit" || modalType === "add") && selectedRoom && (
+                {(modalType === "details" || modalType === "edit" || modalType === "add") && setSelectedRequest && (
                     <div className="modal-overlay"
                         onClick={(e) => {
                             // ตรวจสอบว่าคลิกเกิดขึ้นนอก modal-container
@@ -229,91 +277,118 @@ const Details: React.FC = () => {
                                             : "รายละเอียดข้อมูลอุปกรณ์ห้องประชุม"}
                                 </p>
                             </div>
-                            <div className="modal-body" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
-                                <FormGroup>
+                            <div className="modal-body" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
+                                <FormGroup className="mb-3">
                                     <FormLabel>วันที่ :</FormLabel>
                                     <FormControl>
                                         <input
                                             className="input-field"
                                             type="date"
-                                            value={selectedRoom.date}
-                                            readOnly={modalType === "details"} // ปิดการแก้ไขในโหมดรายละเอียด
-                                            onChange={(e) =>
-                                                modalType !== "details" &&
-                                                setSelectedRoom({ ...selectedRoom, date: e.target.value })
-                                            }
+                                            value={selectedRequest?.Roomdate || ""}
+                                            readOnly={modalType === "details"}
+                                            onChange={(e) => {
+                                                if (modalType !== "details" && selectedRequest) {
+                                                    setSelectedRequest({ ...selectedRequest, Roomdate: e.target.value });
+                                                }
+                                            }}
                                         />
                                     </FormControl>
                                 </FormGroup>
+
                                 <FormGroup>
                                     <FormLabel>ชื่อห้องประชุม :</FormLabel>
                                     <FormControl>
                                         <input
                                             className="input-field"
                                             type="text"
-                                            value={selectedRoom.name}
-
-                                            onChange={(e) =>
-
-                                                setSelectedRoom({ ...selectedRoom, name: e.target.value })
-                                            }
+                                            placeholder="กรอกชื่อห้อง"
+                                            value={selectedRequest?.Roomname || ""}
+                                            readOnly={modalType === "details"}
+                                            onChange={(e) => {
+                                                if (modalType !== "details" && selectedRequest) {
+                                                    setSelectedRequest({ ...selectedRequest, Roomname: e.target.value });
+                                                }
+                                            }}
                                         />
                                     </FormControl>
                                 </FormGroup>
+
                                 <FormGroup>
                                     <FormLabel>ที่ตั้ง :</FormLabel>
                                     <FormControl>
                                         <input
                                             className="input-field"
                                             type="text"
-                                            value={selectedRoom.Location}
-                                            onChange={(e) =>
-                                                setSelectedRoom({ ...selectedRoom, Location: e.target.value })
-                                            }
+                                            placeholder="กรอกที่ตั้ง"
+                                            value={selectedRequest?.Location || ""}
+                                            readOnly={modalType === "details"}
+                                            onChange={(e) => {
+                                                if (modalType !== "details" && selectedRequest) {
+                                                    setSelectedRequest({ ...selectedRequest, Location: e.target.value });
+                                                }
+                                            }}
                                         />
                                     </FormControl>
                                 </FormGroup>
+
                                 <FormGroup>
                                     <FormLabel>ความจุ :</FormLabel>
                                     <FormControl>
                                         <input
                                             className="input-field"
                                             type="number"
-                                            value={selectedRoom.capacity}
-                                            onChange={(e) =>
-                                                setSelectedRoom({ ...selectedRoom, capacity: Number(e.target.value) })
-                                            }
+                                            placeholder="จำนวน"
+                                            value={selectedRequest?.Capacity || 0}
+                                            readOnly={modalType === "details"}
+                                            onChange={(e) => {
+                                                if (modalType !== "details" && selectedRequest) {
+                                                    setSelectedRequest({ ...selectedRequest, Capacity: Number(e.target.value) });
+                                                }
+                                            }}
                                         />
                                     </FormControl>
                                 </FormGroup>
+
                                 <FormGroup>
                                     <FormLabel>ไมโครโฟน :</FormLabel>
                                     <FormControl>
                                         <input
                                             className="input-field"
                                             type="number"
-                                            value={selectedRoom.microphones}
-                                            onChange={(e) =>
-                                                setSelectedRoom({ ...selectedRoom, microphones: Number(e.target.value) })
-                                            }
+                                            placeholder="จำนวนไมโครโฟน"
+                                            value={selectedRequest?.Microphone || 0}
+                                            readOnly={modalType === "details"}
+                                            onChange={(e) => {
+                                                if (modalType !== "details" && selectedRequest) {
+                                                    setSelectedRequest({ ...selectedRequest, Microphone: Number(e.target.value) });
+                                                }
+                                            }}
                                         />
                                     </FormControl>
                                 </FormGroup>
+
                                 <FormGroup>
                                     <FormLabel>จอ TV :</FormLabel>
                                     <FormControl>
                                         <input
                                             className="input-field"
                                             type="number"
-                                            value={selectedRoom.screens}
-                                            onChange={(e) =>
-                                                setSelectedRoom({ ...selectedRoom, screens: Number(e.target.value) })
-                                            }
+                                            placeholder="จำนวนจอ TV"
+                                            value={selectedRequest?.Screen || 0}
+                                            readOnly={modalType === "details"}
+                                            onChange={(e) => {
+                                                if (modalType !== "details" && selectedRequest) {
+                                                    setSelectedRequest({ ...selectedRequest, Screen: Number(e.target.value) });
+                                                }
+                                            }}
                                         />
                                     </FormControl>
                                 </FormGroup>
-                                <h4>อุปกรณ์จอคอมพิวเตอร์/PC</h4>
-                                {selectedRoom.additionalRows?.map((row, index) => (
+                                
+                                {/* ✅ แสดงจำนวนเครื่อง */}
+                                <p>จำนวนจอคอมพิวเตอร์ / PC ทั้งหมด: {getTotalPCCount()} เครื่อง</p>
+                                {/* ✅ แสดงรายการ PC/จอคอมพิวเตอร์ */}
+                                {selectedRequest?.AdditionalRows?.map((row, index) => (
                                     <div key={index}>
                                         <FormGroup>
                                             <FormLabel>จอคอมพิวเตอร์/PC :</FormLabel>
@@ -321,65 +396,45 @@ const Details: React.FC = () => {
                                                 <input
                                                     className="input-field"
                                                     type="text"
-                                                    value={row.pc}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({
-                                                            ...selectedRoom,
-                                                            additionalRows: selectedRoom.additionalRows.map((r, i) =>
-                                                                i === index ? { ...r, pc: String(e.target.value) } : r
-                                                            ),
-                                                        })
-                                                    }
+                                                    value={row.Pc || ""}
+                                                    onChange={(e) => handleInputChange(index, "Pc", e.target.value)}
                                                 />
                                             </FormControl>
                                         </FormGroup>
+
                                         <FormGroup>
                                             <FormLabel>ยี่ห้อ/รุ่น :</FormLabel>
                                             <FormControl>
                                                 <input
                                                     className="input-field"
                                                     type="text"
-                                                    value={row.brand}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({
-                                                            ...selectedRoom,
-                                                            additionalRows: selectedRoom.additionalRows.map((r, i) =>
-                                                                i === index ? { ...r, brand: e.target.value } : r
-                                                            ),
-                                                        })
-                                                    }
+                                                    value={row.Brand || ""}
+                                                    onChange={(e) => handleInputChange(index, "Brand", e.target.value)}
                                                 />
                                             </FormControl>
                                         </FormGroup>
-                                        <FormGroup >
+
+                                        <FormGroup>
                                             <FormLabel>เลขที่สัญญา :</FormLabel>
                                             <FormControl>
                                                 <input
                                                     className="input-field"
                                                     type="text"
-                                                    value={row.contract}
-                                                    onChange={(e) =>
-                                                        setSelectedRoom({
-                                                            ...selectedRoom,
-                                                            additionalRows: selectedRoom.additionalRows.map((r, i) =>
-                                                                i === index ? { ...r, contract: e.target.value } : r
-                                                            ),
-                                                        })
-                                                    }
+                                                    value={row.Contract || ""}
+                                                    onChange={(e) => handleInputChange(index, "Contract", e.target.value)}
                                                 />
                                             </FormControl>
                                         </FormGroup>
+
                                         {/* ปุ่มลบแถว */}
                                         <div style={{ marginTop: "10px" }}>
                                             <button
                                                 type="button"
                                                 className="btn btn-danger"
                                                 onClick={() =>
-                                                    setSelectedRoom({
-                                                        ...selectedRoom,
-                                                        additionalRows: selectedRoom.additionalRows.filter(
-                                                            (_, i) => i !== index
-                                                        ),
+                                                    setSelectedRequest({
+                                                        ...selectedRequest,
+                                                        AdditionalRows: selectedRequest.AdditionalRows.filter((_, i) => i !== index),
                                                     })
                                                 }
                                             >
@@ -395,13 +450,12 @@ const Details: React.FC = () => {
                                             type="button"
                                             className="btnbtn"
                                             onClick={() =>
-                                                setSelectedRoom((prev) => ({
-                                                    ...prev,
-                                                    additionalRows: [
-                                                        ...(prev.additionalRows || []),
-                                                        { pc: "", brand: "", contract: "" },
-
-                                                    ],
+                                                setSelectedRequest((prev) => ({
+                                                    ...((prev as Meetingroom) ?? {}), // บังคับให้ prev เป็น Meetingroom
+                                                    AdditionalRows: [
+                                                        ...(prev?.AdditionalRows ?? []),
+                                                        { Pc: "", Brand: "", Contract: "" }
+                                                    ]
                                                 }))
                                             }
                                         >
@@ -411,34 +465,34 @@ const Details: React.FC = () => {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button className="button-close" onClick={closeModal}>
-                                    ปิด
-                                </button>
-                                {modalType !== "details" && (
+                                <button className="button-close" onClick={closeModal}>ปิด</button>
+                                {modalType !== "details" && selectedRequest && (
                                     <button
                                         className="button-save"
                                         type="button"
                                         onClick={() => {
                                             if (modalType === "add") {
-                                                // เพิ่มข้อมูลใหม่
-                                                setRooms((prevRooms) => [...prevRooms, selectedRoom]);
+                                                setMeetingRoom((prevRequests) => [
+                                                    ...prevRequests,
+                                                    { ...selectedRequest } // ✅ ป้องกัน null
+                                                ]);
                                                 Swal.fire({
                                                     title: "เพิ่มข้อมูลสำเร็จ!",
-                                                    text: `ข้อมูลห้อง "${selectedRoom.name}" ถูกเพิ่มเรียบร้อยแล้ว`,
+                                                    text: `ข้อมูลห้อง "${selectedRequest.Roomname}" ถูกเพิ่มเรียบร้อยแล้ว`,
                                                     icon: "success",
                                                     timer: 2000,
                                                     showConfirmButton: false,
                                                 });
+
                                             } else if (modalType === "edit") {
-                                                // แก้ไขข้อมูล
-                                                setRooms((prevRooms) =>
-                                                    prevRooms.map((room) =>
-                                                        room.id === selectedRoom.id ? selectedRoom : room
+                                                setMeetingRoom((prevRequests) =>
+                                                    prevRequests.map((request) =>
+                                                        request.Roomid === selectedRequest.Roomid ? { ...selectedRequest } : request
                                                     )
                                                 );
                                                 Swal.fire({
                                                     title: "แก้ไขข้อมูลสำเร็จ!",
-                                                    text: `ข้อมูลห้อง "${selectedRoom.name}" ถูกแก้ไขเรียบร้อยแล้ว`,
+                                                    text: `ข้อมูลห้อง "${selectedRequest.Roomname}" ถูกแก้ไขเรียบร้อยแล้ว`,
                                                     icon: "success",
                                                     timer: 2000,
                                                     showConfirmButton: false,

@@ -117,7 +117,26 @@ async function getAllRepairRequest() {
     return { status: false, message: "An unexpected error occurred" };
   }
 }
+async function getAllMeetingRoom() {
+  try {
+    const response = await fetch(`${apiURL}/meeting_room`, { method: "GET" });
+
+    if (response.ok) {
+      const jsonData = await response.json();
+      return { status: true, data: jsonData.data }; // Extract 'data' field
+    } else {
+      const error = await response.json();
+      return {
+        status: false,
+        message: error.message || "Failed to fetch meeting_room",
+      };
+    }
+  } catch (error) {
+    console.error("Error fetching meeting_room:", error);
+    return { status: false, message: "An unexpected error occurred" };
+  }
+}
 
 export {
-  getAllRepairRequest,
+  getAllRepairRequest,getAllMeetingRoom
 };
