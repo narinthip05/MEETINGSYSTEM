@@ -11,7 +11,6 @@ Roomname       string    `json:"roomname"`          //ชื่อห้อง�
 Location       string    `json:"location"`          //ที่ตั้ง    
 Username       string    `json:"username"`		     //ชื่อผู้ใช้
 Machimename    string    `json:"machimename"`       //ชื่อเครื่อง
-Department     string    `json:"department"`	     //แผนก
 Equipmenttype  int       `json:"equipmenttype"`     //ประเภทอุปกรณ์
 Model          string    `json:"model"`		        //รุ่น
 Contractyear   int       `json:"contractyear"`      //เลขที่สัญญา
