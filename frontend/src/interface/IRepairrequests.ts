@@ -7,10 +7,9 @@ export interface Repairrequests {
     Location:    string;          // ที่ตั้ง
     Username:    string;          // ชื่อผู้ใช้
     Machinename: string;          // ชื่อเครื่อง
-    Department:  string;          // แผนก
-    Equipmenttype: number;        // ประเภทอุปกรณ์
+    Equipmenttype: string;        // ประเภทอุปกรณ์
     Model:         string;        // รุ่น
-    Contractyear:  number;        // เลขที่สัญญา
+    Contractyear:  string;        // เลขที่สัญญา
     Harddisk:      string;        // ฮาร์ดดิส
     Ram:           string;        // แรม
     Problemneed:   string;        // ปัญหาที่แจ้งซ่อม

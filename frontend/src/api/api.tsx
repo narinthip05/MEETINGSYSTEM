@@ -97,3 +97,27 @@ export async function deleteUser(userId: number) {
     return { status: false, message: "An unexpected error occurred" };
   }
 }
+
+async function getAllRepairRequest() {
+  try {
+    const response = await fetch(`${apiURL}/repair_requests`, { method: "GET" });
+
+    if (response.ok) {
+      const jsonData = await response.json();
+      return { status: true, data: jsonData.data }; // Extract 'data' field
+    } else {
+      const error = await response.json();
+      return {
+        status: false,
+        message: error.message || "Failed to fetch repair_requests",
+      };
+    }
+  } catch (error) {
+    console.error("Error fetching repairs:", error);
+    return { status: false, message: "An unexpected error occurred" };
+  }
+}
+
+export {
+  getAllRepairRequest,
+};

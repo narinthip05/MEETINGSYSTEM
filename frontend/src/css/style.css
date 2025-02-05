@@ -114,7 +114,7 @@ body,
 /* Navbar */
 .navbar {
   grid-area: navbar;
-  background-color: #fff;
+  background-image: linear-gradient(to right, #ffbf1f, #cc2cc2, #cc2cc2);
   border-radius: 5px;
   color: rgb(11, 11, 11);
   display: flex;
@@ -131,6 +131,8 @@ body,
 .navbar-title {
   font-size: 20px;
   font-weight: bold;
+  
+  
 }
 .navbar-user {
   display: flex;
@@ -149,7 +151,7 @@ body,
 /* Sidebar */
 .sidebar {
   grid-area: sidebar;
-  background-image: linear-gradient(to bottom, #661661, #cc2cc2,#cc2cc2);
+  background-image: linear-gradient(to bottom, #ffbf1f, #cc2cc2,#cc2cc2);
   color: white;
   padding: 20px;
   position: fixed;
@@ -215,29 +217,6 @@ body,
   overflow-y: auto; /* ถ้ามีเนื้อหาเกิน ให้ Scroll */
 }
 
-.dashboard-info {
-  display: flex;
-  justify-content: space-between;
-  gap: 220px;
-  margin-bottom: 40px;
-  margin-top: 20px;
-}
-.info-card {
-  padding: 0px;
-  border-radius: 10px;
-  text-align: center;
-  flex: 1;
-  color: black;
-}
-.info-card.blue {
-  background-color: #add8e6;
-}
-.info-card.red {
-  background-color: #f08080;
-}
-.info-card.green {
-  background-color: #90ee90;
-}
 /*กราฟ*/
 .chart-section {
   text-align: center;
@@ -248,7 +227,6 @@ body,
   height: 500px;
   margin: 0 auto;
 }
-
 .content {
   flex: 1;
   display: flex;
@@ -257,7 +235,6 @@ body,
   background-color: #fefcff;
   /* Light background for main content */
 }
-
 .content-header {
   padding: 10px;
   text-align: center;
@@ -885,7 +862,6 @@ th {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
   margin-top: 20px;
 }
 

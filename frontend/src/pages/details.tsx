@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { FaEdit, FaTrash, FaSearch, FaFile } from "react-icons/fa";
+import { FaEdit, FaTrash , FaFile } from "react-icons/fa";
 import Layer from "../layout/layer.tsx";
 import Swal from "sweetalert2";
 import { FormControl, FormGroup, FormLabel } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { getAllRepairRequest } from "../api/api.tsx"; // ตรวจสอบเส้นทางให้ถูกต้อง
+import { Meetingroom } from "../interface/IMeetingroom.ts"
+
 
 const Details: React.FC = () => {
     const navigate = useNavigate();
@@ -14,6 +17,22 @@ const Details: React.FC = () => {
     const [selectedRoom, setSelectedRoom] = useState<any | null>(null);
     const [modalType, setModalType] = useState<"details" | "edit" | "add" | "confirmDelete" | null>(null);
     const [searchTerm, setSearchTerm] = useState(""); // ตัวแปรสำหรับเก็บข้อความค้นหา
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10; // แสดงข้อมูล 10 แถวต่อหน้า
+    
+
+    // คำนวณหน้าทั้งหมด
+    const totalPages = Math.ceil(rooms.length / itemsPerPage);
+
+    // ฟังก์ชันสำหรับจัดการเปลี่ยนหน้า
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
+    // คำนวณข้อมูลที่จะแสดงในหน้าปัจจุบัน
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = rooms.slice(indexOfFirstItem, indexOfLastItem);
 
 
     // ฟังก์ชันกรองข้อมูลในตาราง
@@ -160,6 +179,32 @@ const Details: React.FC = () => {
                             </tbody>
                         </table>
                     </div>
+                     {/* Pagination */}
+            <div className="pagination">
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    className={`page-btn ${currentPage === 1 ? "disabled" : ""}`}
+                    disabled={currentPage === 1}
+                >
+                    ก่อนหน้า
+                </button>
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handlePageChange(index + 1)}
+                        className={`page-btn ${currentPage === index + 1 ? "active" : ""}`}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    className={`page-btn ${currentPage === totalPages ? "disabled" : ""}`}
+                    disabled={currentPage === totalPages}
+                >
+                    ถัดไป
+                </button>
+            </div>
                 </main>
                 {(modalType === "details" || modalType === "edit" || modalType === "add") && selectedRoom && (
                     <div className="modal-overlay"
