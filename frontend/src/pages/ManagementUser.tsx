@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaSearch, FaFile } from "react-icons/fa";
-import Layor from "../layout/layor.tsx";
+import Layoutc from "../layout/layoutc.tsx";
 import Swal from "sweetalert2";
 import { FormControl, FormGroup, FormLabel } from '@mui/material';
 import { getAllRepairRequest } from "../api/api.tsx"; // ตรวจสอบเส้นทางให้ถูกต้อง
 import { Repairrequests } from "../interface/IRepairrequests.ts"
 
-const Management: React.FC = () => {
+const ManagementUser: React.FC = () => {
     const [repairRequests, setRepairRequests] = useState<Repairrequests[]>([]);
     const [selectedRequest, setSelectedRequest] = useState<Repairrequests | null>(null);
     const [modalType, setModalType] = useState<"details" | "edit" | "add" | null>(null);
@@ -103,7 +103,7 @@ const Management: React.FC = () => {
     };
 
     return (
-        <Layor>
+        <Layoutc>
             <h2>อุปกรณ์แจ้งซ่อม</h2>
             <div style={{ fontFamily: "Arial, sans-serif" }}>
                 <main style={{ marginLeft: "10px", padding: "10px 10px 10px" }}>
@@ -452,8 +452,8 @@ const Management: React.FC = () => {
                     </div>
                 )}
             </div>
-        </Layor>
+        </Layoutc>
     );
 };
 
-export default Management;
+export default ManagementUser;

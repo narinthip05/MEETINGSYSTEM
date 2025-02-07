@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaFile } from "react-icons/fa";
-import Layer from "../layout/layer.tsx";
+import Layoutb from "../layout/layoutB";
 import Swal from "sweetalert2";
 import { FormControl, FormGroup, FormLabel } from "@mui/material";
 import { getAllMeetingRoom } from "../api/api.tsx";
 import { Meetingroom } from "../interface/IMeetingroom.ts";
 
-const Details: React.FC = () => {
+const DetailsUser: React.FC = () => {
     const [meetingRoom, setMeetingRoom] = useState<Meetingroom[]>([]);
     const [selectedRequest, setSelectedRequest] = useState<Meetingroom | null>(null);
     const [modalType, setModalType] = useState<"details" | "edit" | "add" | "confirmDelete" | null>(null);
@@ -139,7 +139,7 @@ const Details: React.FC = () => {
     };
 
     return (
-        <Layer>
+        <Layoutb>
             <h2>อุปกรณ์ภายในห้องประชุม</h2>
             <div style={{ fontFamily: "Arial, sans-serif" }}>
                 <main style={{ marginLeft: "20px", padding: "10px 10px 10px" }}>
@@ -558,7 +558,7 @@ const Details: React.FC = () => {
                     </div>
                 )}
             </div>
-        </Layer>
+        </Layoutb>
     );
 };
-export default Details;
+export default DetailsUser;

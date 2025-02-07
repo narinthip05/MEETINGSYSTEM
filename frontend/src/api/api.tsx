@@ -119,7 +119,7 @@ async function getAllRepairRequest() {
 }
 async function getAllMeetingRoom() {
   try {
-    const response = await fetch(`${apiURL}/meeting_room`, { method: "GET" });
+    const response = await fetch(`${apiURL}/meetingrooms`, { method: "GET" });
 
     if (response.ok) {
       const jsonData = await response.json();

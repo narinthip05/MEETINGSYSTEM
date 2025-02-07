@@ -370,7 +370,7 @@ th {
 .modal-body {
   padding: 30px; /* เพิ่มพื้นที่ระหว่างข้อความ */
   line-height: 1.6; /* เพิ่มความอ่านง่าย */
-  font-size: 1.1rem; /* เพิ่มขนาดตัวอักษร */
+  /*font-size: 1.1rem;  เพิ่มขนาดตัวอักษร */
   color: #333; /* ใช้สีตัวอักษรที่อ่านง่าย */
   text-align: left;
   display: grid;
@@ -1003,3 +1003,5 @@ h2 {
 .btnbtn:hover {
     background-color: #1a6cd8; /* เปลี่ยนสีปุ่มเมื่อ hover */
 }
+
+
